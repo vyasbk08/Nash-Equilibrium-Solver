@@ -8,45 +8,45 @@ A Python implementation of Nash Equilibrium computation for finite two-player no
 
 ### Nash Equilibrium (Nash, 1950)
 
-A mixed strategy profile $(\sigma_1^*, \sigma_2^*)$ is a Nash Equilibrium if and only if neither player can profitably deviate:
+A mixed strategy profile $(\sigma_{1}^{\ast}, \sigma_{2}^{\ast})$ is a Nash Equilibrium if and only if neither player can profitably deviate:
 
-$$u_i(\sigma_i^*, \sigma_{-i}^*) \geq u_i(\sigma_i, \sigma_{-i}^*) \quad \forall \sigma_i \in \Delta(S_i), \; i \in \{1, 2\}$$
+$$u_{i}(\sigma_{i}^{\ast}, \sigma_{-i}^{\ast}) \geq u_{i}(\sigma_{i}, \sigma_{-i}^{\ast}) \quad \forall \sigma_{i} \in \Delta(S_{i}), \; i \in \{1, 2\}$$
 
 ### Support Enumeration Algorithm
 
-For each pair of supports $(S_1 \subseteq \mathcal{S}_1, \; S_2 \subseteq \mathcal{S}_2)$:
+For each pair of supports $(S_{1} \subseteq \mathcal{S}_{1}, \; S_{2} \subseteq \mathcal{S}_{2})$:
 
-**Step 1 — Indifference conditions.** Find $q^*$ supported on $S_2$ such that Player 1 is indifferent over all strategies in $S_1$:
+**Step 1 — Indifference conditions.** Find $q^{\ast}$ supported on $S_{2}$ such that Player 1 is indifferent over all strategies in $S_{1}$:
 
-$$\sum_{j \in S_2} q_j^* \cdot A_{ij} = \sum_{j \in S_2} q_j^* \cdot A_{i'j} \quad \forall \, i, i' \in S_1$$
+$$\sum_{j \in S_{2}} q_{j}^{\ast} \cdot A_{ij} = \sum_{j \in S_{2}} q_{j}^{\ast} \cdot A_{i'j} \quad \forall \, i, i' \in S_{1}$$
 
 This gives the linear system:
 
-$$\begin{pmatrix} A_{S_1, S_2}^{(1)} - A_{S_1, S_2}^{(0)} \\ \mathbf{1}^\top \end{pmatrix} \mathbf{q}_{S_2} = \begin{pmatrix} \mathbf{0} \\ 1 \end{pmatrix}$$
+$$\begin{pmatrix} A_{S_{1}, S_{2}}^{(1)} - A_{S_{1}, S_{2}}^{(0)} \\ \mathbf{1}^\top \end{pmatrix} \mathbf{q}_{S_{2}} = \begin{pmatrix} \mathbf{0} \\ 1 \end{pmatrix}$$
 
-**Step 2** — Repeat for Player 2 to find $p^*$ supported on $S_1$.
+**Step 2** — Repeat for Player 2 to find $p^{\ast}$ supported on $S_{1}$.
 
 **Step 3 — Verification.** Confirm no profitable deviation exists outside the support:
 
-$$A_{ij} \cdot q^* \leq v_1^* \quad \forall \, i \notin S_1, \qquad p^{*\top} B_{\cdot j} \leq v_2^* \quad \forall \, j \notin S_2$$
+$$A_{ij} \cdot q^{\ast} \leq v_{1}^{\ast} \quad \forall \, i \notin S_{1}, \qquad p^{\ast\top} B_{\cdot j} \leq v_{2}^{\ast} \quad \forall \, j \notin S_{2}$$
 
 ### LP-Based Strict Dominance (Pearce, 1984)
 
-Strategy $s_i$ is strictly dominated if:
+Strategy $s_{i}$ is strictly dominated if:
 
-$$\exists \, \sigma_i \in \Delta(\mathcal{S}_i \setminus \{s_i\}): \; u_i(\sigma_i, s_{-i}) > u_i(s_i, s_{-i}) \quad \forall \, s_{-i}$$
+$$\exists \, \sigma_{i} \in \Delta(\mathcal{S}_{i} \setminus \{s_{i}\}): \; u_{i}(\sigma_{i}, s_{-i}) > u_{i}(s_{i}, s_{-i}) \quad \forall \, s_{-i}$$
 
 Computed via linear program:
 
-$$\max \; v \quad \text{s.t.} \quad \sum_{k \neq i} p_k A_{kj} - A_{ij} \geq v \; \forall j, \quad \sum_k p_k = 1, \quad p \geq 0$$
+$$\max \; v \quad \text{s.t.} \quad \sum_{k \neq i} p_{k} A_{kj} - A_{ij} \geq v \; \forall j, \quad \sum_{k} p_{k} = 1, \quad p \geq 0$$
 
-Strategy $s_i$ is strictly dominated $\iff v^* > 0$.
+Strategy $s_{i}$ is strictly dominated $\iff v^{\ast} > 0$.
 
 ### Minimax Theorem (Von Neumann, 1928)
 
-For zero-sum games, the game value $v^*$ satisfies:
+For zero-sum games, the game value $v^{\ast}$ satisfies:
 
-$$v^* = \max_p \min_q \; p^\top A q = \min_q \max_p \; p^\top A q$$
+$$v^{\ast} = \max_{p} \min_{q} \; p^\top A q = \min_{q} \max_{p} \; p^\top A q$$
 
 Computed directly via LP using the HiGHS solver.
 
@@ -72,7 +72,7 @@ Computed directly via LP using the HiGHS solver.
 ## Installation
 
 ```bash
-git clone https://github.com/yourusername/nash-solver.git
+git clone [https://github.com/yourusername/nash-solver.git](https://github.com/yourusername/nash-solver.git)
 cd nash-solver
 pip install -r requirements.txt
 python main.py
